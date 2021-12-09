@@ -1,12 +1,11 @@
 import packageJson from '../../package.json';
+import { InstallButton } from './install-button';
 import { MetaDetailContext } from '@/contexts/meta-detail';
-import { browser } from '@/lib';
 import { MetaVersion } from '@/types';
 import {
   DefaultButton,
   Dropdown,
   IContextualMenuItem,
-  PrimaryButton,
   ResponsiveMode,
 } from '@fluentui/react';
 import dayjs from 'dayjs';
@@ -23,19 +22,7 @@ export const DetailHeader: FC = () => {
     setVersion,
     review,
     setReview,
-    metaLoading,
   } = useContext(MetaDetailContext);
-  const onInstall = () => {
-    if (currentMeta) {
-      console.log(
-        browser('install', {
-          ...currentMeta,
-          id,
-          author: `bext/${currentMeta.id}`,
-        }),
-      );
-    }
-  };
 
   const onMenuClick = (item?: IContextualMenuItem) => {
     switch (item?.key) {
@@ -99,13 +86,7 @@ export const DetailHeader: FC = () => {
         >
           更多
         </DefaultButton>
-        <PrimaryButton
-          className="ml-2"
-          onClick={onInstall}
-          disabled={metaLoading}
-        >
-          安装此版本
-        </PrimaryButton>
+        <InstallButton />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export const via_install = errorCatch((meta) =>
   window.via.addon(
     base64(
       JSON.stringify({
-        id: meta.id,
+        id: +meta.id,
         name: meta.name,
         author: meta.author,
         url: buildMatch(meta.match, ',', '*'),
@@ -43,7 +43,7 @@ export const alook_install = errorCatch((meta) =>
     base64(
       encodeURIComponent(
         JSON.stringify({
-          id: meta.id,
+          id: +meta.id,
           name: meta.name,
           author: meta.author,
           url: buildMatch(meta.match, '@@', '*'),
@@ -99,7 +99,7 @@ export const shark_install = errorCatch((meta) =>
   window.sharkbrowser.installAddon(
     base64(
       JSON.stringify({
-        id: meta.id,
+        id: +meta.id,
         name: meta.name,
         author: meta.author,
         code: base64(meta.build),
@@ -116,7 +116,7 @@ export const lit_install = errorCatch((meta) =>
   window.lit.addon(
     base64(
       JSON.stringify({
-        id: meta.id,
+        id: +meta.id,
         name: meta.name,
         author: meta.author,
         url: meta.match.join(','),
