@@ -1,7 +1,7 @@
 import packageJson from '../../../package.json';
-import { Editor } from '../editor';
 import { InstallButton } from '../install-button';
 import styles from './index.module.less';
+import { BextThemeContext } from '@/contexts/custom-theme-provider';
 import { MetaDetailContext } from '@/contexts/meta-detail';
 import { MetaVersion } from '@/types';
 import { classnames } from '@/util/classnames';
@@ -17,6 +17,7 @@ import {
   ResponsiveMode,
   useTheme,
 } from '@fluentui/react';
+import Editor from '@monaco-editor/react';
 import { useBoolean, useLocalStorageState } from 'ahooks';
 import dayjs from 'dayjs';
 import { FC, useContext, useMemo, useState } from 'react';
@@ -34,6 +35,7 @@ export const DetailHeader: FC = () => {
   const [monaco, setMonaco] = useLocalStorageState('BEXT.DETAIL_MONACO', {
     defaultValue: false,
   });
+  const bextTheme = useContext(BextThemeContext);
 
   const onMenuClick = (item?: IContextualMenuItem) => {
     switch (item?.key) {
@@ -147,10 +149,11 @@ export const DetailHeader: FC = () => {
           <Editor
             value={(currentMeta as any)?.[reviewKey]}
             options={{
-              language: reviewKey === 'detail' ? 'html' : 'javascript',
               readOnly: true,
             }}
             className="h-full"
+            language={reviewKey === 'detail' ? 'html' : 'javascript'}
+            theme={bextTheme === 'light' ? 'vs' : 'vs-dark'}
           />
         ) : (
           <div className="overflow-x-auto text-xs pt-4 pl-4">
